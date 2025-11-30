@@ -1,0 +1,151 @@
+# Product Overview
+
+A simple, lightweight weather lookup website that provides real-time weather information for cities worldwide.
+
+## Core Features
+
+- Real-time weather data via OpenWeatherMap API
+- City search functionality
+- Display of temperature, conditions, humidity, and wind speed
+- Responsive, mobile-friendly design
+- Demo mode with mock data when API key is not configured
+
+## User Experience
+
+- Clean, modern interface with emoji icons
+- Fast, single-page application
+- Clear error messaging for invalid cities or network issues
+- Loading indicators for better UX
+- Form validation for empty inputs
+# Project Structure
+
+## Directory Layout
+
+```
+weather-lookup-site/
+├── public/              # Static frontend files
+│   ├── index.html      # Main HTML page
+│   ├── styles.css      # All styling
+│   └── app.js          # Client-side JavaScript
+├── server.js           # Express server and API endpoint
+├── package.json        # Dependencies and scripts
+├── .env                # Environment variables (not in git)
+├── .env.example        # Environment template
+└── README.md           # Documentation
+```
+
+## Architecture Patterns
+
+### Backend (server.js)
+
+- Single Express server file
+- One API endpoint: `GET /api/weather?city={cityName}`
+- Static file serving from `public/` directory
+- Centralized error handling with error codes
+- Data transformation layer between OpenWeatherMap API and frontend
+- Demo mode fallback for development without API key
+
+### Frontend (public/)
+
+- Single-page application
+- Separation of concerns:
+  - `index.html`: Structure and semantic markup
+  - `styles.css`: All visual styling
+  - `app.js`: DOM manipulation and API calls
+- Event-driven architecture with form submission handling
+- State management through DOM visibility (show/hide patterns)
+
+## Code Conventions
+
+### JavaScript
+
+- Use `async/await` for asynchronous operations
+- Descriptive function names (e.g., `showLoading`, `hideError`)
+- Clear separation between validation, API calls, and UI updates
+- Consistent error handling with try/catch blocks
+- Use `const` for immutable references
+
+### API Response Format
+
+Standardized weather data model:
+```javascript
+{
+  city: string,
+  temperature: number,
+  condition: string,
+  humidity: number,
+  windSpeed: number,
+  icon: string
+}
+```
+
+Error response format:
+```javascript
+{
+  error: string,
+  code: string
+}
+```
+
+### CSS
+
+- Mobile-first responsive design
+- Utility classes for common patterns (e.g., `.hidden`)
+- Component-based class naming
+- Modern CSS features (flexbox, grid where appropriate)
+
+## Key Files
+
+- `server.js`: All backend logic, API proxy, and static serving
+- `public/app.js`: All frontend JavaScript logic
+- `public/index.html`: Single HTML page with semantic structure
+- `public/styles.css`: Complete styling for the application
+
+# Technology Stack
+
+## Backend
+
+- **Runtime**: Node.js
+- **Framework**: Express.js v4.18.2
+- **HTTP Client**: Axios v1.6.2
+- **Environment**: dotenv v16.3.1
+
+## Frontend
+
+- **HTML5** with semantic markup
+- **CSS3** with modern features
+- **Vanilla JavaScript** (no frameworks)
+- Client-side fetch API for HTTP requests
+
+## External APIs
+
+- OpenWeatherMap API for weather data
+- Requires API key stored in `.env` file
+
+## Common Commands
+
+```bash
+# Install dependencies
+npm install
+
+# Start the server (production)
+npm start
+
+# Start the server (development)
+npm run dev
+
+# Server runs on port 8012
+# Access at: http://localhost:8012
+```
+
+## Environment Configuration
+
+- Copy `.env.example` to `.env`
+- Set `OPENWEATHER_API_KEY` with valid API key
+- Demo mode activates if API key is missing or set to `demo_key_please_replace`
+
+## Build System
+
+- No build step required
+- Static files served directly from `public/` directory
+- No transpilation or bundling
